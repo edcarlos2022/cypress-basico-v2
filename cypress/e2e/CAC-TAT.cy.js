@@ -166,7 +166,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
       .invoke('removeAttr', 'target')
       .click()
       cy.get('#white-background > :nth-child(5)')
-      cy.contains('Talking About esting').should('be.visible')
+      cy.contains('Talking About Testing').should('be.visible')
   })
 
   
