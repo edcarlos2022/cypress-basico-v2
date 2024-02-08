@@ -1,29 +1,30 @@
-# Testes automatizados com Cypress - Básico
+#readmi
+#cypress-basico-v2
 
-👋 Seja bem-vindo(a)!
+Projeto simples de testes automatizados com cypress.
 
-É muito bom tê-lo(a) aqui. Tenho certeza que você vai adorar este curso. ❤️
+##Pre-requisitos
 
-## O que você vai aprender
+Este projeto requer Node.js e npm na versão v18.15.0 e 9.5.0 ou superior, eu usei node v20.11.0 e npm v10.2.4 e não tive problemas.
 
-Durante o curso de testes automatizados com Cypress (básico), você vai aprender:
+##Instalação
+Run npm install (or npm i for the short version) para instalar as dependências.
 
-- Como configurar um projeto Cypress do zero
-- Como visitar páginas locais e remotas
-- Como lidar com os elementos mais comuns encontrados em aplicações web
-- Como testar _upload_ de arquivos
-- Como realizar as mais diversas verificações de resultados esperados
-- Como criar comandos customizados
-- Como lidar com links que abrem em outra aba do navegador
-- Como rodar testes simulando as dimensões de um dispositivo móvel
-- Como resolver os mesmos problemas de diferentes formas, conhecendo a [API do Cypress](https://docs.cypress.io/api/table-of-contents)
-- Como executar os testes em um _pipeline_ de integração contínua sempre que mudanças ocorrerem no código da aplicação (ou dos testes)
-- Como criar uma documentação mínima para seu projeto de testes automatizados
+##Tests
+ 
+ Você pode rodar os testes simulando desktop ou mobile seja no modo hadless (backend) ou interativo (browser).
 
-## Vamos começar?
+ ##Desktop
 
-Vá para a seção [estrutura do curso](./lessons/_course-structure_.md).
+ npm test: para testes em modo headless
+ npx cypress open para testes em moodo interativo
 
-___
+##Mobile
 
-Este é mais um curso da [**Escola Talking About Testing**](https://udemy.com/user/walmyr).
+npm run test:mobile para testes em modo headless simulando mobile.
+cypress open --config viewportWidth=410 viewportHeight=860 para testes no modo interativo simulando mobile. 
+
+Apoie esse projeto
+Se você gostou desse projeto, deixe uma ⭐.
+
+Este projeto foi feito com muito esforço 💚 por Ed.

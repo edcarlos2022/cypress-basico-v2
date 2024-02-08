@@ -1,0 +1,11 @@
+Cypress.Commands.add('fillMandatoryFieldsAndSubmit', function(){
+    const longTest = ('texto, texto, texto, texto,texto, texto, texto, textotexto, texto,texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, texto')
+    cy.get('#firstName').type('Ed Carlos')
+    cy.get('#lastName').type('da Silva')
+    cy.get('#email').type('edcarlos@hotmail.com')
+    cy.get('#support-type > :nth-child(2)').click()
+    cy.get('#check > [for="email"]').click()
+    cy.get('#open-text-area').type(longTest,{delay:0})
+    cy.get('.button[type="submit"]').click()
+    cy.get('.success').should('be.visible')
+})
