@@ -1,6 +1,6 @@
 /// <reference types="Cypress" />
 
-//const { remove } = require("cypress/types/lodash")
+const tresSegundos = 3000
 
 describe('Central de Atendimento ao Cliente TAT', function() {
   beforeEach(function(){
@@ -11,6 +11,8 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     })
 
   it('preenche os campos obrigatórios e envia o formulário', function(){
+    cy.clock()
+
     cy.get('#firstName').type('Ed Carlos')
     cy.get('#lastName').type('da Silva')
     cy.get('#email').type('edcarlos@hotmail.com')
@@ -19,9 +21,15 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     cy.get('#open-text-area').type('texto, texto, texto, texto')
     cy.get('.button[type="submit"]').click()
     cy.get('.success').should('be.be.visible')
+
+    cy.tick(tresSegundos)
+    cy.get('.success').should('not.be.visible')
+
   })
 
   it('preenche os campos obrigatórios e envia o formulário COM DELAY', function(){
+    cy.clock()
+
     const longTest = ('texto, texto, texto, texto,texto, texto, texto, textotexto, texto,texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, textotexto, texto, texto, texto')
     cy.get('#firstName').type('Ed Carlos')
     cy.get('#lastName').type('da Silva')
@@ -31,8 +39,13 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     cy.get('#open-text-area').type(longTest,{delay:0})
     cy.get('.button[type="submit"]').click()
     cy.get('.success').should('be.visible')
+    
+    cy.tick(tresSegundos)
+    cy.get('.success').should('not.be.visible')
   })
   it('exibe mensagem de erro ao submeter o formulário com um email com formatação inválida', function(){
+    cy.clock()
+
     cy.get('#firstName').type('Ed Carlos')
     cy.get('#lastName').type('da Silva')
     cy.get('#email').type('edcarlos&hotmail.com')
@@ -41,6 +54,9 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     cy.get('#open-text-area').type('texto, texto, texto, texto')
     cy.get('.button[type="submit"]').click()
     cy.get('.error').should('be.be.visible')
+
+    cy.tick(tresSegundos)
+    cy.get('.error').should('not.be.visible')
   })
 
   it('Valor não numerico, retorno em branco', function(){
@@ -49,6 +65,8 @@ describe('Central de Atendimento ao Cliente TAT', function() {
   })
 
   it('exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido antes do envio do formulário', function(){
+    cy.clock()
+
     cy.get('#firstName').type('Ed Carlos')
     cy.get('#lastName').type('da Silva')
     cy.get('#email').type('edcarlos&hotmail.com')
@@ -56,6 +74,9 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     cy.get('#open-text-area').type('texto, texto, texto, texto')
     cy.get('.button[type="submit"]').click()
     cy.get('.error').should('be.be.visible')
+
+    cy.tick(tresSegundos)
+    cy.get('.error').should('not.be.visible')
 
    })
 
@@ -75,8 +96,13 @@ describe('Central de Atendimento ao Cliente TAT', function() {
    })
 
    it('exibe mensagem de erro ao submeter o formulário sem preencher os campos obrigatórios', function(){
+   cy.clock()
+
     cy.get('.button[type="submit"]').click()
     cy.get('.error').should('be.be.visible')
+
+    cy.tick(tresSegundos)
+    cy.get('.error').should('not.be.visible')
    })
   
    it('envia o formuário com sucesso usando um comando customizado', function(){
@@ -84,6 +110,8 @@ describe('Central de Atendimento ao Cliente TAT', function() {
    })
 
    it('contains', function(){
+    cy.clock()
+
     cy.get('#firstName').type('Ed Carlos')
     cy.get('#lastName').type('da Silva')
     cy.get('#email').type('edcarlos@hotmail.com')
@@ -92,6 +120,9 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     cy.get('#open-text-area').type('texto, texto, texto, texto')
     cy.contains('button', 'Enviar').click()
     cy.get('.success').should('be.be.visible')
+
+    cy.tick(tresSegundos)
+    cy.get('.success').should('not.be.visible')
     })
 
   it('seleciona um produto (YouTube) por seu texto', function(){
@@ -166,8 +197,45 @@ describe('Central de Atendimento ao Cliente TAT', function() {
       .invoke('removeAttr', 'target')
       .click()
       cy.get('#white-background > :nth-child(5)')
-      cy.contains('Talking About Testing').should('be.visible')
+   
+      cy.contains('Talking About Testing').should('be.visible') 
   })
 
-  
+  it('exibe e esconde as mensagens de sucesso e erro usando o .invoke', function() {
+    cy.get('.success')
+      .should('not.be.visible')
+      .invoke('show')
+      .should('be.visible')
+      .and('contain', 'Mensagem enviada com sucesso.')
+      .invoke('hide')
+      .should('not.be.visible')
+    cy.get('.error')
+      .should('not.be.visible')
+      .invoke('show')
+      .should('be.visible')
+      .and('contain', 'Valide os campos obrigatórios!')
+      .invoke('hide')
+      .should('not.be.visible')
+  })
+
+  it('preenche a area de texto usando o comando invoke', function(){
+  const longText = Cypress._.repeat('0123456789', 50)
+     
+    cy.get('#open-text-area')
+    .invoke('val', longText)
+    .should('have.value', longText)
+  })
+
+  it('encontre o gato', function(){
+    cy.get('#cat')
+    .invoke('show')
+    .should('be.visible')
+    cy.get('#title')
+    .invoke('text', 'CAT TAT')
+    cy.get('#subtitle')
+    .invoke('text', 'Eu 🤍 Cahorros 🐶')
+    .invoke('text').should('contain', '🐶')
+    
+  })
+
 })
