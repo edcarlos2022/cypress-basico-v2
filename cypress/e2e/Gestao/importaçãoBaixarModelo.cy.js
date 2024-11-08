@@ -6,32 +6,24 @@ describe('Importações baixar modelo', () => {
      it('Baixar modelo de importação', () => {
       
       cy.visit(url)
-      cy.get('#mat-select-0 > .mat-select-trigger').click()
-      cy.get('#mat-option-2 > .mat-option-text').click()
-      cy.get('#mat-select-6 > .mat-select-trigger > .mat-select-arrow-wrapper > .mat-select-arrow').click()
-      cy.get('#mat-option-82 > .mat-option-text').click()
-      //selecionando arquivo
-      cy.get('.file-input > .mat-icon').click()
+      cy.get('#mat-select-0 > .mat-select-trigger',{timeout:15000}).click()
+      cy.get('#mat-option-2 > .mat-option-text',{timeout:15000}).click()
+      cy.contains('Etapa 2 - Selecionar rede',{timeout:15000}).click()
+      cy.get('#mat-select-6 > .mat-select-trigger > .mat-select-arrow-wrapper',{timeout:15000}).click()
+      cy.wait(3000)
+      cy.get('#mat-select-value-7,[Alliedigital]',{timeout:15000}).click()
+      cy.get('.mat-button-wrapper > span',{timeout:15000}).click({force:true})
+      
+      cy.intercept('*').as('allRequests');
+    cy.wait('@allRequests').then((interception) => {
+      console.log(interception);
+    })
+    
+    cy.intercept('GET', '**https://hmg-sav-api.wooza.com.br/rede/api/download/modelo-importacao*').as('apiRequest')
+    cy.contains('.mat-button-wrapper > span', 'Baixar modelo de importação').click({ force: true })    
+    // Aguarda a requisição ser concluída e verifica o status
+    cy.wait('@apiRequest', { timeout: 20000 }).its('response.statusCode').should('eq', 200);
 
-     /* // Caminho do arquivo que será importado (coloque o arquivo na pasta cypress/fixtures)
-    const filePath = 'path/to/your/file.ext'; // usar o caminho correto
-
-    // Interceptar a requisição de upload, se necessário
-    cy.intercept('POST', '/path/to/upload/endpoint').as('uploadFile');
-
-    // Selecionar o input de upload e anexar o arquivo
-    cy.get('input[type="file"]').attachFile(filePath);
-
-    // Verificar se o arquivo foi anexado corretamente e enviar o formulário
-    cy.get('form').submit();
-
-    // Aguardar e verificar a resposta da requisição de upload
-    cy.wait('@uploadFile').then((interception) => {
-      expect(interception.response.statusCode).to.eq(200);
-    });
-
-    // Verificar se o arquivo foi importado corretamente na interface
-    cy.get('.uploaded-file-list').should('contain', 'file.ext'); // Substitua pela verificação adequada
-  */
+   
        })
     })

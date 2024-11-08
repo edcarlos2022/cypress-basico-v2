@@ -29,7 +29,7 @@ describe('Termo de coleta', () => {
     'Data Final',
     'ND',
     //'Pedido Compra jund' esse não está dentro do elemento, tem verificar a parte
-    'Status Interno'
+    'Status SAV'
   ];
 
   itensEsperados.forEach(item => {

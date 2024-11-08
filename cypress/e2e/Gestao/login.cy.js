@@ -5,7 +5,7 @@ describe('Teste de login', () => {
     cy.loginSav()
   });
 
-  // Exemplo de uso do comando guiLogin em um teste
+  
   it.only('Deve fazer login com sucesso', () => {
     cy.visit("https://hmg-sav.wooza.com.br/alliedigital/modules-dashboard")
     cy.get('.title').should('have.text','Selecione um módulo')
@@ -23,6 +23,10 @@ describe('Teste de login', () => {
       cy.get('.mat-button-wrapper').click()
       cy.get('.title', { timeout: 10000 }).should('be.visible')
       cy.wait(30000)
+      //selecione ponto de venda
+      cy.get('#mat-select-value-1',{timeout:50000}).should('be.visible').click({force: true})
+      cy.get('#mat-option-1 > .mat-option-text',{timeout:50000}).should('be.visible').click({force: true})
+      cy.get('.mat-dialog-actions > .mat-focus-indicator > .mat-button-wrapper').click()
       cy.get('.title').should('have.text','Selecione um módulo')
       // Verifica se cada item específico está presente
       cy.get('.content-dashboard',{timeout:20000}) 

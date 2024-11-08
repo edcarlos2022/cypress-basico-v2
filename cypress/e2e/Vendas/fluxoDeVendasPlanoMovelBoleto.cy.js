@@ -28,8 +28,9 @@ describe('Comprar somente aparelho', () => {
       // Digita a senha correta no campo de entrada
       cy.get('#mat-input-0').type('334353');
       cy.wait(3000);
-      // Clica no botão de login
-      cy.get('form.ng-tns-c229-1 > .mat-focus-indicator').click();
+    
+      // Clica no botão de Entrar
+      cy.get('span.mat-button-wrapper,[Entrar]').click();
       
       cy.wait(30000);
       // Clica no trigger do seletor

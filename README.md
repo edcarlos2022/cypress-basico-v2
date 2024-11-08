@@ -1,11 +1,13 @@
 #readmi
-#cypress-basico-v2
+#Automação SAV e2e
 
 Projeto simples de testes automatizados com cypress.
 
 ##Pre-requisitos
 
 Este projeto requer Node.js e npm na versão v18.15.0 e 9.5.0 ou superior, eu usei node v20.11.0 e npm v10.2.4 e não tive problemas.
+Deve instalar o Sinon para automatizar com pop-ups : npm install sinon --save-dev
+
 
 ##Instalação
 Run npm install (or npm i for the short version) para instalar as dependências.
